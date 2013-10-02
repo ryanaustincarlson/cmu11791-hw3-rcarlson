@@ -14,9 +14,11 @@ import org.apache.uima.collection.CasConsumer_ImplBase;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.ResourceProcessException;
+import org.apache.uima.util.ProcessTrace;
 import org.apache.uima.util.XMLSerializer;
 import org.xml.sax.SAXException;
 
+import edu.cmu.deiis.types.Evaluation;
 import edu.cmu.deiis.types.SourceDocumentInformation;
 
 /**
@@ -37,9 +39,14 @@ public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
   private File mOutputDir;
 
   private int mDocNum;
+  private double mPrecisionSum;
+  private int mPrecisionCount;
 
   public void initialize() throws ResourceInitializationException {
     mDocNum = 0;
+    mPrecisionSum = 0;
+    mPrecisionCount = 0;
+    
     mOutputDir = new File((String) getConfigParameterValue(PARAM_OUTPUTDIR));
     if (!mOutputDir.exists()) {
       mOutputDir.mkdirs();
@@ -98,6 +105,15 @@ public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
     } catch (SAXException e) {
       throw new ResourceProcessException(e);
     }
+    
+    it = jcas.getAnnotationIndex(Evaluation.type).iterator();
+    if (it.hasNext()) {
+      Evaluation eval = (Evaluation) it.next();
+      mPrecisionSum += eval.getPrecisionAtN();
+      mPrecisionCount++;
+    }
+
+    System.out.println(XmiWriterCasConsumer.class.getSimpleName());
   }
 
   /**
@@ -126,5 +142,12 @@ public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
         out.close();
       }
     }
+  }
+
+  @Override
+  public void collectionProcessComplete(ProcessTrace arg0) throws ResourceProcessException,
+          IOException {
+    super.collectionProcessComplete(arg0);
+    System.out.println("Average Precision @ N: " + (mPrecisionSum / mPrecisionCount));
   }
 }
