@@ -24,8 +24,9 @@ import edu.cmu.deiis.types.AnswerScore;
 public class EvaluationAnnotator extends JCasAnnotator_ImplBase {
 
   private boolean shouldConsiderAnswerScore(AnswerScore answerScore) {
-    return answerScore.getCasProcessorId().equals(
-            CosineSimilarityScoreAnnotator.class.getSimpleName());
+    return answerScore.getCasProcessorId() != null
+            && answerScore.getCasProcessorId().equals(
+                    CosineSimilarityScoreAnnotator.class.getSimpleName());
   }
 
   @Override
@@ -60,7 +61,7 @@ public class EvaluationAnnotator extends JCasAnnotator_ImplBase {
       if (!shouldConsiderAnswerScore(answerScore)) {
         continue;
       }
-      
+
       answerScores.add(answerScore);
       numCorrectAnswers += answerScore.getAnswer().getIsCorrect() ? 1 : 0;
     }

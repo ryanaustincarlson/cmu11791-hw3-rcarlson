@@ -39,14 +39,16 @@ public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
   private File mOutputDir;
 
   private int mDocNum;
+
   private double mPrecisionSum;
+
   private int mPrecisionCount;
 
   public void initialize() throws ResourceInitializationException {
     mDocNum = 0;
     mPrecisionSum = 0;
     mPrecisionCount = 0;
-    
+
     mOutputDir = new File((String) getConfigParameterValue(PARAM_OUTPUTDIR));
     if (!mOutputDir.exists()) {
       mOutputDir.mkdirs();
@@ -105,15 +107,13 @@ public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
     } catch (SAXException e) {
       throw new ResourceProcessException(e);
     }
-    
+
     it = jcas.getAnnotationIndex(Evaluation.type).iterator();
     if (it.hasNext()) {
       Evaluation eval = (Evaluation) it.next();
       mPrecisionSum += eval.getPrecisionAtN();
       mPrecisionCount++;
     }
-
-    System.out.println(XmiWriterCasConsumer.class.getSimpleName());
   }
 
   /**

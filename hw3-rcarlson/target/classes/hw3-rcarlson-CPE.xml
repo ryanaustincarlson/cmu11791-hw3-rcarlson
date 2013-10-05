@@ -16,9 +16,9 @@
         </collectionIterator>
     </collectionReader>
     <casProcessors casPoolSize="3" processingUnitThreadCount="1">
-        <casProcessor deployment="integrated" name="hw2-rcarlson-aae">
+        <casProcessor deployment="integrated" name="scnlp-rcarlson-client.xml">
             <descriptor>
-                <import location="hw2-rcarlson-aae.xml"/>
+                <import location="scnlp-rcarlson-client.xml"/>
             </descriptor>
             <deploymentParameters/>
             <errorHandling>

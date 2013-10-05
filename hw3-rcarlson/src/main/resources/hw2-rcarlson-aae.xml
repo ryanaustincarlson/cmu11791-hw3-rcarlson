@@ -22,7 +22,10 @@
     <delegateAnalysisEngine key="EvaluationAnnotator">
       <import name="analysis_engines.EvaluationAnnotator"/>
     </delegateAnalysisEngine>
-    </delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="StanfordNamedEntityScoreAnnotator">
+      <import name="analysis_engines.StanfordNamedEntityScoreAnnotator"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>hw2-rcarlson-aae</name>
     <description/>
@@ -34,10 +37,11 @@
       <fixedFlow>
         <node>TestElementAnnotator</node>
         <node>NGramAnnotator</node>
-      <node>GoldStandardScoreAnnotator</node>
+      <node>StanfordNamedEntityScoreAnnotator</node>
+        <node>GoldStandardScoreAnnotator</node>
         <node>TokenOverlapScoreAnnotator</node>
         <node>CosineSimilarityScoreAnnotator</node>
-        <node>EvaluationAnnotator</node>
+      <node>EvaluationAnnotator</node>
       </fixedFlow>
     </flowConstraints>
     <typePriorities/>
