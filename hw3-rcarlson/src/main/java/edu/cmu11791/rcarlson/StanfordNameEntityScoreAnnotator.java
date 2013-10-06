@@ -13,12 +13,17 @@ import org.cleartk.ne.type.NamedEntityMention;
 import edu.cmu.deiis.types.AnswerScore;
 import edu.cmu.deiis.types.Question;
 
+
+/**
+ * Annotations based on Stanford Core NLP tools
+ * 
+ * @author Ryan Carlson (rcarlson)
+ */
 public class StanfordNameEntityScoreAnnotator extends AbstractScoreAnnotator {
 
   private static final String PERSON_TYPE = "PERSON";
 
   private boolean mentionIsContained(Annotation annotation, NamedEntityMention mention) {
-    System.out.println(StanfordNameEntityScoreAnnotator.class.getSimpleName());
     return annotation.getBegin() <= mention.getBegin() && annotation.getEnd() >= mention.getEnd();
   }
 

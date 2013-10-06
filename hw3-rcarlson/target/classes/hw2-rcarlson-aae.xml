@@ -25,6 +25,9 @@
     <delegateAnalysisEngine key="StanfordNamedEntityScoreAnnotator">
       <import name="analysis_engines.StanfordNamedEntityScoreAnnotator"/>
     </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="CollapseAnswerScoreAnnotator">
+      <import name="analysis_engines.CollapseAnswerScoreAnnotator"/>
+    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>hw2-rcarlson-aae</name>
@@ -41,6 +44,7 @@
         <node>GoldStandardScoreAnnotator</node>
         <node>TokenOverlapScoreAnnotator</node>
         <node>CosineSimilarityScoreAnnotator</node>
+      <node>CollapseAnswerScoreAnnotator</node>
       <node>EvaluationAnnotator</node>
       </fixedFlow>
     </flowConstraints>
