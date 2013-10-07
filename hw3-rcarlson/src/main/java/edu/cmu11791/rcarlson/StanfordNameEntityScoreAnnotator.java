@@ -26,20 +26,7 @@ public class StanfordNameEntityScoreAnnotator extends AbstractScoreAnnotator {
   private boolean mentionIsContained(Annotation annotation, NamedEntityMention mention) {
     return annotation.getBegin() <= mention.getBegin() && annotation.getEnd() >= mention.getEnd();
   }
-
-  private void printList(List<String> mylist) {
-    if (mylist.size() == 0) {
-      System.out.println("Mention List Empty");
-    } else {
-      for (String x : mylist) {
-        System.out.print(x + ", ");
-      }
-      System.out.println();
-    }
-  }
   
-  // I should really use a set implementation that can support computing the intersection, but I'll
-  // just roll my own here
   private int getOverlap(List<String> first, List<String> second) {
     int count = 0;
     for (String firstString : first) {
@@ -73,14 +60,7 @@ public class StanfordNameEntityScoreAnnotator extends AbstractScoreAnnotator {
         }
       }
     }
-    // TODO: remoave me!
-//    System.out.println("Question: " + question.getCoveredText() + ", Answer: "
-//            + answerScore.getCoveredText());
-//    printList(questionEntities);
-//    printList(answerEntities);
-//    System.out.println(getOverlap(questionEntities, answerEntities));
-//    System.out.println();
-//    
+
     answerScore.setScore(getOverlap(questionEntities, answerEntities));
     answerScore.setConfidence(0.5);
     answerScore.setCasProcessorId(StanfordNameEntityScoreAnnotator.class.getSimpleName());
