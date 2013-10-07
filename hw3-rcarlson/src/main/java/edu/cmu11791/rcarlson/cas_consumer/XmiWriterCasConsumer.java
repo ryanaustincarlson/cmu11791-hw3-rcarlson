@@ -28,6 +28,9 @@ import edu.cmu.deiis.types.SourceDocumentInformation;
  * <ul>
  * <li><code>OutputDirectory</code> - path to directory into which output files will be written</li>
  * </ul>
+ * 
+ * This was taken verbatim from uimaj-xamples and then modified slightly to calculate and report
+ * P@N.
  */
 public class XmiWriterCasConsumer extends CasConsumer_ImplBase {
   /**

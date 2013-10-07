@@ -26,6 +26,7 @@ import edu.cmu.deiis.types.SourceDocumentInformation;
  * <li><code>Language</code> (optional) - language of the input documents</li>
  * </ul>
  * 
+ * This was taken verbatim from uimaj-examples.
  * 
  */
 public class FileSystemCollectionReader extends CollectionReader_ImplBase {
@@ -48,17 +49,17 @@ public class FileSystemCollectionReader extends CollectionReader_ImplBase {
   public static final String PARAM_LANGUAGE = "Language";
 
   /**
-   * Name of optional configuration parameter that indicates including
-   * the subdirectories (recursively) of the current input directory.
+   * Name of optional configuration parameter that indicates including the subdirectories
+   * (recursively) of the current input directory.
    */
   public static final String PARAM_SUBDIR = "BrowseSubdirectories";
-  
+
   private ArrayList<File> mFiles;
 
   private String mEncoding;
 
   private String mLanguage;
-  
+
   private Boolean mRecursive;
 
   private int mCurrentIndex;
@@ -68,8 +69,8 @@ public class FileSystemCollectionReader extends CollectionReader_ImplBase {
    */
   public void initialize() throws ResourceInitializationException {
     File directory = new File(((String) getConfigParameterValue(PARAM_INPUTDIR)).trim());
-    mEncoding  = (String) getConfigParameterValue(PARAM_ENCODING);
-    mLanguage  = (String) getConfigParameterValue(PARAM_LANGUAGE);
+    mEncoding = (String) getConfigParameterValue(PARAM_ENCODING);
+    mLanguage = (String) getConfigParameterValue(PARAM_LANGUAGE);
     mRecursive = (Boolean) getConfigParameterValue(PARAM_SUBDIR);
     if (null == mRecursive) { // could be null if not set, it is optional
       mRecursive = Boolean.FALSE;
@@ -87,11 +88,10 @@ public class FileSystemCollectionReader extends CollectionReader_ImplBase {
     mFiles = new ArrayList<File>();
     addFilesFromDir(directory);
   }
-  
+
   /**
-   * This method adds files in the directory passed in as a parameter to mFiles.
-   * If mRecursive is true, it will include all files in all
-   * subdirectories (recursively), as well. 
+   * This method adds files in the directory passed in as a parameter to mFiles. If mRecursive is
+   * true, it will include all files in all subdirectories (recursively), as well.
    * 
    * @param dir
    */
@@ -127,7 +127,7 @@ public class FileSystemCollectionReader extends CollectionReader_ImplBase {
     // open input stream to file
     File file = (File) mFiles.get(mCurrentIndex++);
     String text = FileUtils.file2String(file, mEncoding);
-      // put document in CAS
+    // put document in CAS
     jcas.setDocumentText(text);
 
     // set language if it was explicitly specified as a configuration parameter
